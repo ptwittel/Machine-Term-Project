@@ -32,7 +32,7 @@ ggplot(data = train_balance) +
 ```
 
 
-There is not a strong difference between the two levels 
+|   It is hard to tell the difference between any of the classes. the most visually striking factor is education, where there is a difference in prop between those who defaulted and those that had not. Age, sex, and marriage all have some difference in proportions however, it is hard to tell if they are distinct. Male are slightly more likely to default, as well as married couples who too are slightly more likly to default.  
 
 ```{r}
 
@@ -55,9 +55,13 @@ train_balance %>%
 
 ```
 
+|   The shapes of the payment, the bill statement, and balance seem to mirror each other fairly closely, matching bump for bump between those how have defaulted and those that have not. the only determinable difference is that in pay and balance, those who have ~30,000 average payments do not default. 
+
 ```{r}
 
 ggplot(train_balance) +
   geom_violin(aes(x = limit_bal, y = default))
 
 ```
+
+|   The distributions of the limit_bal, is different between the two levels in default. This suggest that this may be most valuable factor in determining wither or not someone defaults.
