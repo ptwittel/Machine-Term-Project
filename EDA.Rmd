@@ -11,7 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 
-train_balance <- calculate_balance(train)
+train_balance <- add_id(train) %>% calculate_balance(.)
+
 ```
 
 ```{r}
@@ -27,5 +28,36 @@ ggplot(data = train_balance) +
 
 ggplot(data = train_balance) +
   geom_bar(mapping = aes(x = default, fill = marriage), position = "fill")
+
 ```
 
+
+There is not a strong difference between the two levels 
+
+```{r}
+
+train_balance %>% 
+  crossRow_pay_avg() %>% 
+  ggplot(.) +
+  geom_violin(aes(x = pay_amt_avg, y = default))
+
+train_balance %>% 
+  crossRow_bill_avg() %>% 
+  ggplot(.) +
+  geom_violin(aes(x = bill_amt_avg, y = default))
+
+
+train_balance %>% 
+  crossRow_balance_avg() %>% 
+  ggplot(.) +
+  geom_violin(aes(x = balance_amt_avg, y = default))
+
+
+```
+
+```{r}
+
+ggplot(train_balance) +
+  geom_violin(aes(x = limit_bal, y = default))
+
+```
