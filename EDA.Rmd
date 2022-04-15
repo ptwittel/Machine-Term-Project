@@ -1,0 +1,31 @@
+---
+title: "Data EDA"
+author: "P. Wittel"
+date: "4/15/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+train_balance <- calculate_balance(train)
+```
+
+```{r}
+
+ggplot(data = train_balance) +
+  geom_boxplot(mapping = aes(y = default, x = age))
+
+ggplot(data = train_balance) +
+  geom_bar(mapping = aes(x = default, fill = education), position = "fill")
+
+ggplot(data = train_balance) +
+  geom_bar(mapping = aes(x = default, fill = sex), position = "fill")
+
+ggplot(data = train_balance) +
+  geom_bar(mapping = aes(x = default, fill = marriage), position = "fill")
+```
+
