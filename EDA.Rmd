@@ -11,7 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 
-train_balance <- add_id(train) %>% calculate_balance(.)
+
+train_balance <- load_data("Raw Data/final_train.csv") %>% 
+  add_id() %>% calculate_balance(rm_extra = FALSE)
+
 
 ```
 
@@ -37,12 +40,12 @@ ggplot(data = train_balance) +
 ```{r}
 
 train_balance %>% 
-  crossRow_pay_avg() %>% 
+  crossRow_pay() %>% 
   ggplot(.) +
   geom_violin(aes(x = pay_amt_avg, y = default))
 
 train_balance %>% 
-  crossRow_bill_avg() %>% 
+  crossRow_bill() %>% 
   ggplot(.) +
   geom_violin(aes(x = bill_amt_avg, y = default))
 
@@ -65,3 +68,32 @@ ggplot(train_balance) +
 ```
 
 |   The distributions of the limit_bal, is different between the two levels in default. This suggest that this may be most valuable factor in determining wither or not someone defaults.
+
+```{r}
+
+ggplot(train_balance %>% crossRow_pay())+
+  geom_point(aes(x = limit_bal, y = pay_amt_avg, color = default))
+
+ggplot(train_balance %>% crossRow_bill() %>% filter(default == 0))+
+  geom_point(aes(y = limit_bal, x = bill_amt_avg, color = default))
+
+ggplot(train_balance %>% crossRow_balance())+
+  geom_point(aes(x = limit_bal, y = balance_amt_avg, color = default))
+
+```
+
+
+```{r}
+
+ggplot(train_balance %>% crossRow_bill()) +
+  geom_point(aes(y = limit_bal, x = bill_amt_sum, color = default))
+
+ggplot(train_balance %>% crossRow_bill() %>% filter(default == 1)) +
+  geom_point(aes(y = limit_bal, x = bill_amt_sum, color = default))
+
+ggplot(train_balance %>% crossRow_bill() %>% filter(default == 0)) +
+  geom_point(aes(y = limit_bal, x = bill_amt_sum, color = default))
+
+
+```
+|   There seems to be an interesting line of data points at 500,000. the majority of the people that made are on this line do NOT default. 
