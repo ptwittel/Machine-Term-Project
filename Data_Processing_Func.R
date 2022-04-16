@@ -1,5 +1,7 @@
 ## This script define the function to clean/ process data
 
+library(tidyverse)
+
 # this function reads in .csv and set the column type
 load_data <- function(path){
   return(
@@ -26,7 +28,7 @@ calculate_balance <- function(dataFrame, rm_extra = FALSE) {
     
     dataFrame <- mutate(dataFrame, "{bal}" := .data[[pay]] - .data[[bill]])
     
-    if(remove_extra == TRUE){
+    if(rm_extra == TRUE){
       dataFrame <- select(dataFrame, - .data[[bill]], - .data[[pay]])
     }
   }
@@ -34,11 +36,12 @@ calculate_balance <- function(dataFrame, rm_extra = FALSE) {
 }
 
 # this function condenses pay, 
-crossRow_pay_avg <- function(df, rm_extra = FALSE) {
+crossRow_pay <- function(df, rm_extra = FALSE) {
 
   df <- df %>% rowwise() %>% 
-    mutate( pay_amt_avg = mean(pay_amt1, pay_amt2, pay_amt3,
-                               pay_amt4, pay_amt5, pay_amt6) ) 
+    mutate( pay_amt_sum = sum(pay_amt1, pay_amt2, pay_amt3,
+                               pay_amt4, pay_amt5, pay_amt6),
+            pay_amt_avg = pay_amt_sum / 6) 
   
   if(rm_extra == TRUE){
     df <- df %>% rm(pay_amt1, pay_amt2, pay_amt3,
@@ -49,11 +52,12 @@ crossRow_pay_avg <- function(df, rm_extra = FALSE) {
 }
 
 #this function condense bill
-crossRow_bill_avg <- function(df, rm_extra = FALSE) {
+crossRow_bill <- function(df, rm_extra = FALSE) {
   
   df <- df %>% rowwise() %>% 
-    mutate( bill_amt_avg = mean(bill_amt1, bill_amt2, bill_amt3,
-                               bill_amt4, bill_amt5, bill_amt6) )
+    mutate( bill_amt_sum = sum(bill_amt1, bill_amt2, bill_amt3,
+                               bill_amt4, bill_amt5, bill_amt6),
+            bill_amt_avg = bill_amt_sum / 6)
   
   if(rm_extra == TRUE){
     df <- df %>% rm(bill_amt1, bill_amt2, bill_amt3,
@@ -64,11 +68,12 @@ crossRow_bill_avg <- function(df, rm_extra = FALSE) {
 }
 
 #this function condense balance
-crossRow_balance_avg <- function(df, rm_extra = FALSE) {
+crossRow_balance <- function(df, rm_extra = FALSE) {
   
   df <- df %>% rowwise() %>% 
-    mutate( balance_amt_avg = mean(balance_amt1, balance_amt2, balance_amt3,
-                               balance_amt4, balance_amt5, balance_amt6) )
+    mutate( balance_amt_sum = sum(balance_amt1, balance_amt2, balance_amt3, 
+                                  balance_amt4, balance_amt5, balance_amt6),
+            balance_amt_avg = balance_amt_sum / 6)
   
   if(rm_extra == TRUE){
     df <- df %>% rm(balance_amt1, balance_amt2, balance_amt3,
@@ -76,3 +81,5 @@ crossRow_balance_avg <- function(df, rm_extra = FALSE) {
   
   return(df)
 }
+
+
