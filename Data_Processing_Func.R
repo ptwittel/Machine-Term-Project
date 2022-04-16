@@ -44,8 +44,8 @@ crossRow_pay <- function(df, rm_extra = FALSE) {
             pay_amt_avg = pay_amt_sum / 6) 
   
   if(rm_extra == TRUE){
-    df <- df %>% rm(pay_amt1, pay_amt2, pay_amt3,
-                    pay_amt4, pay_amt5, pay_amt6)
+    df <- df %>% dplyr::select(-pay_amt1, -pay_amt2, -pay_amt3,
+                    -pay_amt4, -pay_amt5, -pay_amt6)
   }
   
   return(df)
@@ -60,8 +60,8 @@ crossRow_bill <- function(df, rm_extra = FALSE) {
             bill_amt_avg = bill_amt_sum / 6)
   
   if(rm_extra == TRUE){
-    df <- df %>% rm(bill_amt1, bill_amt2, bill_amt3,
-                    bill_amt4, bill_amt5, bill_amt6)
+    df <- df %>% dplyr::select(-bill_amt1, -bill_amt2, -bill_amt3,
+                    -bill_amt4, -bill_amt5, -bill_amt6)
   }
   
   return(df)
@@ -76,8 +76,8 @@ crossRow_balance <- function(df, rm_extra = FALSE) {
             balance_amt_avg = balance_amt_sum / 6)
   
   if(rm_extra == TRUE){
-    df <- df %>% rm(balance_amt1, balance_amt2, balance_amt3,
-                    balance_amt4, balance_amt5, balance_amt6)}
+    df <- df %>% dplyr::select(-balance_amt1, -balance_amt2, -balance_amt3,
+                    -balance_amt4, -balance_amt5, -balance_amt6)}
   
   return(df)
 }
