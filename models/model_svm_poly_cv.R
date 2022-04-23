@@ -4,6 +4,7 @@ twoClassCtrl <- trainControl(method = "repeatedcv",
                              number = 5,
                              repeats = 3,
                              savePredictions = "final",
+                             sampling = "up",
                              verboseIter = TRUE)
 
 svm_poly_cv <- caret::train(default ~ .,

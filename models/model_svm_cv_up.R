@@ -3,7 +3,6 @@
 twoClassCtrl <- trainControl(method = "repeatedcv",
                              number = 5,
                              repeats = 3,
-                             summaryFunction = twoClassSummary,
                              sampling = "up",
                              verboseIter = TRUE)
 

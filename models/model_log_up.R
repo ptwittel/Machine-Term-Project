@@ -1,8 +1,8 @@
 # LOGISTIC REGRESSION UP SAMPLING
 
 upCtrl <- trainControl(method = "repeatedcv",
-                       number = 5,
-                       repeats = 3,
+                       number = 10,
+                       repeats = 5,
                        savePredictions = "final",
                        classProbs = TRUE,
                        summaryFunction = twoClassSummary,
