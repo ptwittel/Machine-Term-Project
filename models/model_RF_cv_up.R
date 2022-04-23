@@ -1,8 +1,7 @@
 
 
-upCtrl <- trainControl(method = "repeatedcv",
-                             number = 5,
-                             repeats = 5,
+upCtrl <- trainControl(method = "cv",
+                             number = 15,
                              savePredictions = "final",
                              classProbs = TRUE,
                              summaryFunction = twoClassSummary,
@@ -15,9 +14,3 @@ rf_rcv_up <- train(default ~ ., trainingSet %>% sample_frac(0.1, replace = FALSE
                    tuneLenght = 10)
 
 saveRDS(rf_rcv_up, "Saved Models/model_rf_rcv_up.rds")
-
-
-fitted <- predict(rf_rcv_up, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
