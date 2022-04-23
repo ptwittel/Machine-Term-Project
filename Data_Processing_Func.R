@@ -83,4 +83,13 @@ crossRow_balance <- function(df, rm_extra = FALSE) {
   return(df)
 }
 
+regConfusionMatrix <- function(model) {
+  cm <- confusionMatrix(reference = testingSet$default,
+                        data = predict(model, testingSet),
+                        mode = "everything",
+                        positive = "Pos")
+  
+  return(cm)
+}
+
 
