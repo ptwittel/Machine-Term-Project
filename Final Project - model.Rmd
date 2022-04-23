@@ -1,0 +1,69 @@
+---
+title: "Final Project - STAT 362"
+author: "Karl Mbouombouo"
+date: "16/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readr)
+library(MASS)
+library(caret)
+library(glmnet)
+library(broom)
+library(randomForest)
+library(tree)
+library(glmnet)
+library(mgcv)
+```
+
+# Data
+```{r}
+train <- read_csv("C:/Users/test/Desktop/UE/STAT 362/Final Project/final_train(1).csv")
+compete <- read_csv("C:/Users/test/Desktop/UE/STAT 362/Final Project/final_compete(1).csv")
+
+# Convert the data
+train$sex <- as.factor(train$sex)
+train$education <- as.factor(train$education)
+train$marriage <- as.factor(train$marriage)
+train$education <- as.factor(train$education)
+train$default <- as.factor(train$default)
+
+compete$sex <- as.factor(compete$sex)
+compete$education <- as.factor(compete$education)
+compete$marriage <- as.factor(compete$marriage)
+compete$education <- as.factor(compete$education)
+```
+
+# 2. Building Model
+```{r}
+# Logistic Regression
+train_glm <- glm(default~ ., data = train, family = "binomial")
+train_glm
+
+
+# LDA
+train_lda <- lda(default~ ., data = train)
+train_lda
+
+
+# Decision Tree
+train_tree <- tree(default~ ., data = train)
+summary(train_tree)
+
+plot(train_tree)
+text(train_tree, pretty = 0)
+
+
+# Random Forest
+train_rf <- randomForest(default~., data = train, importance = TRUE, set.seed(nrow(train)))
+train_rf
+
+pred_rf <- predict(train_rf, newdata = compete)
+
+confusionMatrix(pred_rf, y_var)
+
+varImpPlot(train_rf)
+```
