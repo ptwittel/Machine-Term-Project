@@ -4,8 +4,7 @@ library(tidyverse)
 
 # this function reads in .csv and set the column type
 load_data <- function(path){
-  return(
-  read_csv(path, col_types = cols(
+  df <- read_csv(path, col_types = cols(
       sex = col_factor(),
       education = col_factor(),
       marriage = col_factor(),
@@ -13,7 +12,9 @@ load_data <- function(path){
       default = col_factor()
       )
     )
-  )
+
+  
+  return(df)
 }
 
 # adds IDs to data frames that do not have id
