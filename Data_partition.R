@@ -4,6 +4,7 @@
 set.seed(3188055)
 df <- load_data("Raw Data/final_train.csv") 
 
+df$default <- recode_factor(df$default, "1" = "Pos", "0" = "Neg")
 
 sample <- caret::createDataPartition(df$default, p = 0.75, list = FALSE)
 
@@ -11,7 +12,7 @@ sample <- caret::createDataPartition(df$default, p = 0.75, list = FALSE)
 
 training <- df[sample, ] 
 
-dummieModel <- dummyVars("default ~ .", data = training)
+dummieModel <- dummyVars(default ~ ., data = training)
 trainingSetX <- as.data.frame(predict(dummieModel, newdata = training))
 
 scaleModel <- preProcess(trainingSetX, method = "range")      ## MAKE SURE THIS MATCHES THAT
