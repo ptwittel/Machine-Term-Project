@@ -1,0 +1,11 @@
+regConfusionMatrix(log_down)$table
+regConfusionMatrix(log_up)$table
+regConfusionMatrix(log_step)$table
+regConfusionMatrix(rf)$table
+regConfusionMatrix(rf_rcv)$table
+regConfusionMatrix(rf_rcv_up)$table
+regConfusionMatrix(knn_cv)$table
+regConfusionMatrix(knn_cv_up)$table
+regConfusionMatrix(svm_cv)$table
+regConfusionMatrix(xgb_cv)$table
+regConfusionMatrix(svm_poly_cv)$table
