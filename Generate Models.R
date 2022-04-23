@@ -16,5 +16,5 @@ trainingSet <- trainingSet %>% sample_frac(0.25) ## For debugging perposes
 (source("models/model_log_up.R"))
 (source("models/model_RF_cv_up.R"))
 (source("models/model_xgb_cv_up.R"))
-(source("models/model_svm_poly_cv.R"))
+(source("models/model_svm_cv_up.R"))
 
