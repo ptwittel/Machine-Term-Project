@@ -2,18 +2,14 @@
 
 twoClassCtrl <- trainControl(method = "repeatedcv",
                              number = 5,
-                             repeats = 5,
-                             savePredictions = "final")
+                             repeats = 3,
+                             savePredictions = "final",
+                             verboseIter = TRUE)
 
 svm_poly_cv <- caret::train(default ~ .,
-                       data = trainingSet %>% sample_frac(0.1,replace = F),
+                       data = trainingSet,
                        trControl =  twoClassCtrl,
                        method = "lssvmPoly")
 
-
-fitted <- predict(svm_poly_cv, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
 
 saveRDS(model_log, "Saved Models/model_svm_poly_cv.rds")

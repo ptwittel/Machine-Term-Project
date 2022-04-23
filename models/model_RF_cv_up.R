@@ -1,16 +1,18 @@
+#RANDOM FOREST CV UP SAMPLING
 
+upCtrl <- trainControl(method = "repeatedcv",
+                       number = 5,
+                       repeats = 3,
+                       savePredictions = "final",
+                       classProbs = TRUE,
+                       summaryFunction = twoClassSummary,
+                       sampling = "up",
+                       verboseIter = TRUE)
 
-upCtrl <- trainControl(method = "cv",
-                             number = 15,
-                             savePredictions = "final",
-                             classProbs = TRUE,
-                             summaryFunction = twoClassSummary,
-                             sampling = "up")
-
-rf_rcv_up <- train(default ~ ., trainingSet %>% sample_frac(0.1, replace = FALSE), 
+rf_cv_up <- train(default ~ ., trainingSet, 
                    method = "rf",
                    metric = "ROC",
                    trControl = upCtrl,
-                   tuneLenght = 10)
+                   tuneLenght = 5)
 
-saveRDS(rf_rcv_up, "Saved Models/model_rf_rcv_up.rds")
+saveRDS(rf_cv_up, "Saved Models/model_rf_cv_up.rds")

@@ -1,10 +1,12 @@
 # NEURAL NETWORK
 
-twoClassCtrl <- trainControl(method = "cv",
+twoClassCtrl <- trainControl(method = "repeatedcv",
                              number = 5,
+                             repeats = 3,
                              savePredictions = "final",
                              classProbs = TRUE,
-                             summaryFunction = twoClassSummary)
+                             summaryFunction = twoClassSummary,
+                             verboseIter = TRUE)
 
 neural_cv <- caret::train(default ~ .,
                        data = trainingSet,
@@ -12,10 +14,5 @@ neural_cv <- caret::train(default ~ .,
                        method = "mxnet",
                        metric = "ROC")
 
-
-fitted <- predict(nearal_cv, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
 
 saveRDS(model_log, "Saved Models/model_neural_cv.rds")

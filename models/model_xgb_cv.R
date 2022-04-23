@@ -2,18 +2,14 @@
 
 twoClassCtrl <- trainControl(method = "repeatedcv",
                              number = 5,
-                             repeats = 5,
-                             savePredictions = "final")
+                             repeats = 3,
+                             savePredictions = "final",
+                             verboseIter = TRUE)
 
 xgb_cv <- caret::train(default ~ .,
-                            data = trainingSet %>% sample_frac(0.1,replace = F),
+                            data = trainingSet,
                             trControl =  twoClassCtrl,
                             method = "xgbLinear")
 
-
-fitted <- predict(xgb_cv, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
 
 saveRDS(xgb_cv, "Saved Models/model_xgb_cv.rds")

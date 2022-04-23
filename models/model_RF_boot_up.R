@@ -1,26 +1,19 @@
+# RANDOM FOREST BOOT UP SAMPLING
 
 upCtrl <- trainControl(method = "boot",
                        number = 5,
-                       repeats = 5,
+                       repeats = 3,
                        savePredictions = "final",
                        classProbs = TRUE,
                        summaryFunction = twoClassSummary,
-                       sampling = "up")
+                       sampling = "up",
+                       verboseIter = TRUE)
 
-rf <- train(default ~ ., trainingSet %>% sample_frac(0.1, replace = FALSE), 
+rf <- train(default ~ ., trainingSet, 
             method = "rf",
             metric = "ROC",
             trControl = upCtrl,
-            tuneLength = 10)
-rf
+            tuneLength = 5)
 
-varimp_RF <- varImp(rf)
-plot(varimp_RF, main = "Default Variable Importance (Random Forest)")
+saveRDS(rf, "Saved Models/model_RF_boot_up.rds")
 
-saveRDS(rf, "Saved Models/model_RF_boot.rds")
-
-
-fitted <- predict(rf, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
