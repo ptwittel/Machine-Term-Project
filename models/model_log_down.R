@@ -1,26 +1,20 @@
-# Logical Regression Model
+# Logical Regression Model DOWN SAMPLING
 
 
-upCtrl <- trainControl(method = "cv",
-                       number = 15,
+downCtrl <- trainControl(method = "repeatedcv",
+                       number = 5,
+                       repeats = 3,
                        savePredictions = "final",
                        classProbs = TRUE,
                        summaryFunction = twoClassSummary,
-                       sampling = "down")
+                       sampling = "down",
+                       verboseIter = TRUE)
 
 log_down <- caret::train(default ~ .,
                        data = trainingSet,
-                       trControl =  upCtrl,
+                       trControl =  downCtrl,
                        method = "glm",
                        metric = "ROC",
                        family = "binomial")
 
-log_down
-
-log_down$results
-
-fitted <- predict(log_down, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
-saveRDS(model_log, "Saved Models/model_log_down.rds")
+saveRDS(log_down, "Saved Models/model_log_down.rds")

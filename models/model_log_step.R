@@ -1,12 +1,14 @@
-# Logical Regression Model
+# Logical Regression Model StepAIC
 
 
-upCtrl <- trainControl(method = "cv",
-                       number = 15,
+upCtrl <- trainControl(method = "repeatedcv",
+                       number = 5,
+                       repeats = 3,
                        savePredictions = "final",
                        classProbs = TRUE,
                        summaryFunction = twoClassSummary,
-                       sampling = "up")
+                       sampling = "up",
+                       verboseIter = TRUE)
 
 log_step <- caret::train(default ~ .,
                        data = trainingSet,
@@ -15,12 +17,5 @@ log_step <- caret::train(default ~ .,
                        metric = "ROC",
                        family = "binomial")
 
-log_step
 
-log_step$results
-
-fitted <- predict(log_step, testingSet)
-
-confusionMatrix(reference = testingSet$default, data = fitted, 
-                mode = "everything", positive = "Pos")
-saveRDS(model_log, "Saved Models/model_logistic_cv.rds")
+saveRDS(log_step, "Saved Models/model_log_step.rds")

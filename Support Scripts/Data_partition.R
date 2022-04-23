@@ -15,7 +15,7 @@ training <- df[sample, ]
 dummieModel <- dummyVars(default ~ ., data = training)
 trainingSetX <- as.data.frame(predict(dummieModel, newdata = training))
 
-scaleModel <- preProcess(trainingSetX, method = "range")      ## MAKE SURE THIS MATCHES THAT
+scaleModel <- preProcess(trainingSetX, method = c("center", "scale"))      ## MAKE SURE THIS MATCHES THAT
 trainingSetX <- predict(scaleModel, newdata = trainingSetX)
 
 
@@ -31,7 +31,7 @@ testing <- df[-sample,]
 dummieModel <- dummyVars("default ~ .", data = testing)
 testingSetX <- as.data.frame(predict(dummieModel, newdata = testing))
 
-scaleModel <- preProcess(testingSetX, method = "range")       ## MAKE SURE THAT MATCHES THIS
+scaleModel <- preProcess(testingSetX, method = c("center", "scale"))       ## MAKE SURE THAT MATCHES THIS
 testingSetX <- predict(scaleModel, newdata = testingSetX)
 
 testingSet <- cbind(testing$default, testingSetX)
