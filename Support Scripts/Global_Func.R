@@ -11,8 +11,6 @@ load_data <- function(path){
       age = col_integer()
       )
     )
-
-  
   return(df)
 }
 
@@ -95,4 +93,12 @@ calLogLoss <- function(model){
   return(MLmetrics::LogLoss(y_pred, y_true) )
 }
 
+
+### PREPARE COMP DATA FOR SUBMISSION
+
+predCompData <- function(model){
+  df <- data.frame(id = 1:nrow(compSet),
+                   default = predict(model, compSet, type = "prob")$Pos)
+  return(df)
+}
 
