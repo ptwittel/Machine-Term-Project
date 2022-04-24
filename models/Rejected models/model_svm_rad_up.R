@@ -9,7 +9,7 @@ twoClassCtrl <- trainControl(method = "repeatedcv",
 svm_rad_cv <- caret::train(default ~ .,
                             data = trainingSet,
                             trControl =  twoClassCtrl,
-                            method = "svmRadical")
+                            method = "svmRadial")
 
 
 saveRDS(model_log, "Saved Models/model_svm_rad_cv.rds")
