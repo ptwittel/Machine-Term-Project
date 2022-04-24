@@ -39,6 +39,19 @@ names(testingSet) <- names(trainingSet)
 
 write_csv(testingSet, "Clean Data/part_validate.csv")
 
+### COMPITISION DATA
+comp <- load_data("Raw Data/final_compete.csv")
+
+dummieModel <- dummyVars(default ~ ., data = comp)
+compSetX <- as.data.frame(predict(dummieModel, newdata = comp))
+
+scaleModel <- preProcess(compSetX, method = c("center", "scale")) 
+compSetX <- predict(scaleModel, newdata = compSetX)
+
+write_csv(compSetX, "Clean Data/comp_data.csv")
+
+## REMOVE UN-USED VARIABLES AND DF
+
 rm(dummieModel, scaleModel, 
    trainingSetX, training,
    testingSetX, testing,
