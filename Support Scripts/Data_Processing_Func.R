@@ -8,8 +8,7 @@ load_data <- function(path){
       sex = col_factor(),
       education = col_factor(),
       marriage = col_factor(),
-      age = col_integer(),
-      default = col_factor()
+      age = col_integer()
       )
     )
 
@@ -90,6 +89,13 @@ regConfusionMatrix <- function(model) {
                         positive = "Pos")
   
   return(cm)
+}
+
+calLogLoss <- function(model){
+  y_pred <- predict(model, testingSet, type = "prob")$Pos
+  y_true <-ifelse(testingSet$default == "Pos", 1, 0)
+  
+  return(MLmetrics::LogLoss(y_pred, y_true) )
 }
 
 
