@@ -2,7 +2,7 @@
 # this file also cleans the data frame for working with caret
 
 set.seed(3188055)
-df <- load_data("Raw Data/final_train.csv") 
+df <- load_data("Data Raw/final_train.csv") 
 
 df$default <- recode_factor(df$default, "1" = "Pos", "0" = "Neg")
 
@@ -22,7 +22,7 @@ trainingSetX <- predict(scaleModel, newdata = trainingSetX)
 trainingSet <- cbind(training$default, trainingSetX)
 names(trainingSet)[1] <- "default"
 
-write_csv(trainingSet, "Clean Data/part_train.csv")
+write_csv(trainingSet, "Data Clean/part_train.csv")
 
 ## Testing Data Set
 
@@ -37,10 +37,10 @@ testingSetX <- predict(scaleModel, newdata = testingSetX)
 testingSet <- cbind(testing$default, testingSetX)
 names(testingSet) <- names(trainingSet)
 
-write_csv(testingSet, "Clean Data/part_validate.csv")
+write_csv(testingSet, "Data Clean/part_validate.csv")
 
 ### COMPITISION DATA
-comp <- load_data("Raw Data/final_compete.csv")
+comp <- load_data("Data Raw/final_compete.csv")
 
 dummieModel <- dummyVars("~ .", data = comp)
 compSet <- as.data.frame(predict(dummieModel, newdata = comp))
@@ -48,7 +48,7 @@ compSet <- as.data.frame(predict(dummieModel, newdata = comp))
 scaleModel <- preProcess(compSet, method = c("center", "scale")) 
 compSet <- predict(scaleModel, newdata = compSet)
 
-write_csv(compSet, "Clean Data/comp_data.csv")
+write_csv(compSet, "Data Clean/comp_data.csv")
 
 ## REMOVE UN-USED VARIABLES AND DF
 
