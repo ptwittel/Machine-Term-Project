@@ -3,7 +3,6 @@
 upCtrl <- trainControl(method = "repeatedcv",
                        number = 5,
                        repeats = 3,
-                       savePredictions = "final",
                        classProbs = TRUE,
                        summaryFunction = twoClassSummary,
                        sampling = "up",
@@ -12,7 +11,6 @@ upCtrl <- trainControl(method = "repeatedcv",
 rf_cv_up <- train(default ~ ., trainingSet, 
                    method = "rf",
                    metric = "ROC",
-                   trControl = upCtrl,
-                   tuneLenght = 5)
+                   trControl = upCtrl)
 
 saveRDS(rf_cv_up, "Saved Models/model_rf_cv_up.rds")
