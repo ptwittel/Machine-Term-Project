@@ -3,8 +3,8 @@
 library(tidyverse)
 library(caret)
 
-source("Support Scripts/Data_Global_Func.R")
-source("Support Scripts/Data_preProcessing.R")
+source("Support Scripts/Global_Func.R")
+source("Support Scripts/Data_preProcessing_alt.R")
 
 ## Pre-Launch procedures
 set.seed(817525159)
@@ -20,3 +20,8 @@ trainingSet <- trainingSet ## For debugging purposes
 #(source("models/model_svm_poly_cv.R")) HORRABLLY INEFFIENCT COMPUTATIONAL REQUIRMENT!!!
 #(source("models/model_svm_rad_up.R")) #For an additional run for funzes
 
+(source("models/model_knn_AP_cv_up.R"))
+(source("models/model_log_AP_up.R"))
+(source("models/model_RF_AP_cv_up.R"))
+(source("models/model_xgb_AP_cv_up.R"))
+(source("models/model_svm_AP_cv_up.R"))
