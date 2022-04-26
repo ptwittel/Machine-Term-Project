@@ -23,4 +23,3 @@ modelMetrics_df <- data.frame(cm_matrix) %>%
   mutate(LogLoss = LogLoss_val)
 
 
-write_csv(modelsCM, "modelStats.csv")
