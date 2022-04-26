@@ -16,8 +16,6 @@ set.seed(817525159)
 (source("models/model_RF_cv_up.R"))
 (source("models/model_xgb_cv_up.R"))
 (source("models/model_svm_cv_up.R"))
-#(source("models/model_svm_poly_cv.R")) HORRABLLY INEFFIENCT COMPUTATIONAL REQUIRMENT!!!
-#(source("models/model_svm_rad_up.R")) #For an additional run for funzes
 
 
 # Loading Added Predictors data
